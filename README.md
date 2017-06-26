@@ -74,7 +74,7 @@ Example: [GITHUB LINK](https://github.com/dirtyonekanobi/pb_create_tower_deployk
 This way git will use your *normal* key when on your local computer, and the aliased deploy key on Tower.
 ____
 
-##HOW DOES THIS WORK 
+## HOW DOES THIS WORK 
 
 One of the steps in the *DEPLOY_KEY* playbook adds a block of text to Tower's `$HOME/.ssh/config` file.
 
