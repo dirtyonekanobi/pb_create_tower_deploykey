@@ -83,7 +83,7 @@ One of the steps in the *DEPLOY_KEY* playbook adds a block of text to Tower's `$
 
 # Configured By Ansible
 Host post-deploy-config-archive
-HostName github.build.ge.com
+HostName github.com
 IdentityFile $HOME/.ssh/post-deploy-config-archive
 
 ### END EXAMPLE ###
