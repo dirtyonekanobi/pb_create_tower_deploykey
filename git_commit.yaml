@@ -6,7 +6,7 @@ gather_facts: no
 # Example Vars
 vars: 
   archive_dir: "{{ playbook_dir }}/config_archives"
-  USERNAME: "{{ GITHUB_ORG }}"
+  USERNAME: dirtyonekanobi
   CHANGE_NUMBER: 123456
   REPO_SHORTNAME: github_config_archive
   
