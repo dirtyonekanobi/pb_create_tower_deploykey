@@ -30,7 +30,7 @@
         content: |
           # Configured By Ansible
           Host {{ repo_name }}
-          HostName github.build.ge.com
+          HostName github.com
           IdentityFile {{ keyfile }}
     - debug:
         msg:
