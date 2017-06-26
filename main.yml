@@ -1,0 +1,39 @@
+---
+- name: CREATE AND MANAGE MULTIPLE TOWER DEPLOY KEYS
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    local_user: "{{ lookup('env', 'USER') }}"
+    repo_name: "{{ REPO_SHORTNAME }}"
+    keyfile: "{{ home_dir }}/.ssh/{{ repo_name }}"
+
+  tasks:
+    - name: CREATE SSH KEY
+      user:
+        name: "{{ local_user }}"
+        generate_ssh_key: yes
+        ssh_key_bits: 4096
+        ssh_key_file: "{{ keyfile }}"
+
+    - name: COPY THIS KEY TO SCREEN
+      shell: cat "{{ keyfile }}.pub"
+      register: ssh_key
+
+    - name: ADD ALIAS FOR TOWER
+      blockinfile:
+        dest: "{{ home_dir }}/.ssh/config"
+        create: yes
+        marker: ""
+        content: |
+          # Configured By Ansible
+          Host {{ repo_name }}
+          HostName github.build.ge.com
+          IdentityFile {{ keyfile }}
+    - debug:
+        msg:
+          - "*****COPY THIS TO GITHUB AS A DEPLOY KEY*****"
+          - "{{ ssh_key.stdout }}"
+          - "*** use [ git push {{ repo_name }} master ] in playbook use new deploy key" 
