@@ -1,0 +1,25 @@
+---
+hosts: localhost
+connection: local
+gather_facts: no
+
+# Example Vars
+vars: 
+  archive_dir: "{{ playbook_dir }}/config_archives"
+  USERNAME: "{{ GITHUB_ORG }}"
+  CHANGE_NUMBER: 123456
+  REPO_SHORTNAME: github_config_archive
+  
+tasks:
+
+  - name: COMMIT THE CHANGE CONFIGS
+    shell: git add . && git commit -m ' commit for "{{ CHANGE_NUMBER }}"'
+    args:
+      chdir: "{{ archive_dir }}"
+    run_once: yes
+
+  - name: PUSH TO REPO
+    shell: "git push git@{{ USERNAME }}/{{ REPO_SHORTNAME }}:{{ USERNAME }}/{{ REPO_SHORTNAME }}.git {{ BRANCH }}"
+    args:
+      chdir: "{{ archive_dir }}"
+    run_once: yes
